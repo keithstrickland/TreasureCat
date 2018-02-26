@@ -37,6 +37,20 @@ public class BoardImage {
 		
 		return pixelPos;
 	}
+
+
+    private void drawImage(Graphics g, Position pos, char bgImageSymbol)
+    {
+        Image image = iMap.getImage(bgImageSymbol);
+        Position pixelPos = calculateXY(pos);
+        g.drawImage(image, pixelPos.col, pixelPos.row, null);
+    }
+
+	private void drawImages(Graphics g, Position pos, char bgImageSymbol, char imageSymbol )
+    {
+        drawImage(g, pos, bgImageSymbol);
+        drawImage(g, pos, imageSymbol);
+    }
 	
 	public void setBoard(Board board)
 	{
@@ -48,9 +62,7 @@ public class BoardImage {
 	public void draw(Graphics g)
 	{
 		Position pos = new Position();
-		Position pixelPos = new Position();
 		char symbol;
-		Image image, bgimage;
 		
 		// First draw the goal spaces...
 		for (pos.row = 0; pos.row < goalBoard.numRows(); pos.row++) {
@@ -58,9 +70,7 @@ public class BoardImage {
 				symbol = goalBoard.getCell(pos);				
 				if (symbol == '+')
 				{
-					image = iMap.getImage(symbol);
-					pixelPos = calculateXY(pos);
-					g.drawImage(image, pixelPos.col, pixelPos.row, null);
+                    drawImage(g, pos, symbol);
 				}
 			}
 		}
@@ -71,33 +81,19 @@ public class BoardImage {
 				symbol = mBoard.getCell(pos);
 				if (symbol == '.' || symbol == '#')
 				{
-					image = iMap.getImage(symbol);
-					pixelPos = calculateXY(pos);
-					g.drawImage(image, pixelPos.col, pixelPos.row, null);
+                    drawImage(g, pos, symbol );
 				}
 				if (symbol == 'p' || symbol == '$')
 				{
-					image = iMap.getImage(symbol);
-					bgimage = iMap.getImage('.');
-					pixelPos = calculateXY(pos);
-					g.drawImage(bgimage, pixelPos.col, pixelPos.row, null);
-					g.drawImage(image, pixelPos.col, pixelPos.row, null);
+                    drawImages(g, pos,'.', symbol);
 				}
 				if (symbol == 'P')
 				{
-					image = iMap.getImage('p');
-					bgimage = iMap.getImage('+');
-					pixelPos = calculateXY(pos);
-					g.drawImage(bgimage, pixelPos.col, pixelPos.row, null);
-					g.drawImage(image, pixelPos.col, pixelPos.row, null);
+                    drawImages(g, pos,'+', 'p');
 				}
                 if (symbol == '*')
                 {
-                    image = iMap.getImage('$');
-                    bgimage = iMap.getImage('+');
-                    pixelPos = calculateXY(pos);
-                    g.drawImage(bgimage, pixelPos.col, pixelPos.row, null);
-                    g.drawImage(image, pixelPos.col, pixelPos.row, null);
+                    drawImages(g, pos,'+', '$');
                 }
 			}
 		}						

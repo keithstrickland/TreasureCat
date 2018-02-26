@@ -44,9 +44,11 @@ public class Board {
 
 	/**
 	 * Create a Board with # rows and # columns.
-	 * 
+	 *
 	 * @param numRows
+	 *            The number of rows on the board
 	 * @param numCols
+	 *            The number of columns on the board
 	 */
 	public Board(int numRows, int numCols) {
 		init(numRows, numCols);
