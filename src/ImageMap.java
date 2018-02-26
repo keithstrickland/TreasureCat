@@ -33,6 +33,11 @@ public class ImageMap {
 		return result;
 	}
 
+	public Image getImage(int index)
+    {
+        return images[index];
+	}
+
 	public Image getImage(char symbol)
 	{
 		Image foundImage = null; 

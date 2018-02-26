@@ -19,9 +19,7 @@ import graphics.ScreenManager;
 public class Main {
 
 	public int gameLevel = 1;
-
-	public int lastlevel = 5;
-
+	public static final int lastlevel = 40;
 	public boolean stop = false;
 
 	public KeyInput _keyInput;
@@ -68,10 +66,10 @@ public class Main {
 	}
 
 	private static final DisplayMode POSSIBLE_MODES[] = {
-            new DisplayMode(1280, 1024, 32, 0),
 			new DisplayMode(640, 480, 32, 0),
 			new DisplayMode(640, 480, 24, 0),
-			new DisplayMode(640, 480, 16, 0) };
+			new DisplayMode(640, 480, 16, 0)
+	};
 
 	public void run() {
 		screen = new ScreenManager();
@@ -173,6 +171,8 @@ public class Main {
 
 	private Image goal;
 
+	private Image[] number;
+
 	private void loadImages() {
 		// load images
 		bgImage = loadImage("src/resources/images/background640_480.jpg");
@@ -182,20 +182,35 @@ public class Main {
 		treasure_sprite = loadImage("src/resources/images/treasure_sprite.png");
 		wall_tile = loadImage("src/resources/images/wall_tile.png");
 		goal = loadImage("src/resources/images/goal_tile.png");
+        number = new Image[] {
+                loadImage("src/resources/images/zero.png"),
+                loadImage("src/resources/images/one.png"),
+                loadImage("src/resources/images/two.png"),
+                loadImage("src/resources/images/three.png"),
+                loadImage("src/resources/images/four.png"),
+                loadImage("src/resources/images/five.png"),
+                loadImage("src/resources/images/six.png"),
+                loadImage("src/resources/images/seven.png"),
+                loadImage("src/resources/images/eight.png"),
+                loadImage("src/resources/images/nine.png")
+        };
 	}
 
 	private void initBoard() {
 		builder = new LevelLoader();
 		board = new Board(16, 20, builder.getLevel(initialLevel));
 		gm = new GameMaster(board);
-		map = new ImageMap(7);
-		map.associateImage(space_tile, '.', 0);      // Empty space tile
-		map.associateImage(player_right, 'p', 1);    // Player sprite
-		map.associateImage(treasure_sprite, '$', 2); // Treasure sprite
-		map.associateImage(wall_tile, '#', 3);       // Wall tile
-		map.associateImage(goal, '+', 4);            // Goal tile
-		map.associateImage(player_right, 'P', 5);    // Player on Goal tile
-		map.associateImage(treasure_sprite, '%', 6); // Treasure on Goal tile
+		map = new ImageMap(17);
+		for(int i=0; i < 10; i++){
+            map.associateImage(number[i], '1', i);    // Number sprites
+        }
+		map.associateImage(space_tile, '.', 10);      // Empty space tile
+		map.associateImage(player_right, 'p', 11);    // Player sprite
+		map.associateImage(treasure_sprite, '$', 12); // Treasure sprite
+		map.associateImage(wall_tile, '#', 13);       // Wall tile
+		map.associateImage(goal, '+', 14);            // Goal tile
+        map.associateImage(player_right, 'P', 15);    // Player on Goal tile
+        map.associateImage(treasure_sprite, '%', 16); // Treasure on Goal tile
 		bImage = new BoardImage(board, map, pix_sz, pix_sz);
 		_keyInput.moveKeysEnabled = true;
 	}

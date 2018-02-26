@@ -69,7 +69,7 @@ public class GameMaster {
 						mBoard.setCell(pos, '.');
 					else
 						mBoard.setCell(pos, '+');
-					mBoard.setCell(newPos, '%');
+					mBoard.setCell(newPos, '*');
 					moved = true;
 				}
 			}
@@ -121,7 +121,7 @@ public class GameMaster {
 						moved = true;
 					}
 				}
-				if (val == '%') {
+				if (val == '*') {
 					Position treasurePos = pos.newPosition(direction);
 					if (treasureMove(treasurePos, direction)) {
 						if (pval == 'p')

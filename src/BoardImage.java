@@ -83,12 +83,22 @@ public class BoardImage {
 					g.drawImage(bgimage, pixelPos.col, pixelPos.row, null);
 					g.drawImage(image, pixelPos.col, pixelPos.row, null);
 				}
-				if (symbol == 'P' || symbol == '%')
+				if (symbol == 'P')
 				{
-					image = iMap.getImage(symbol);
+					image = iMap.getImage('p');
+					bgimage = iMap.getImage('+');
 					pixelPos = calculateXY(pos);
+					g.drawImage(bgimage, pixelPos.col, pixelPos.row, null);
 					g.drawImage(image, pixelPos.col, pixelPos.row, null);
 				}
+                if (symbol == '*')
+                {
+                    image = iMap.getImage('$');
+                    bgimage = iMap.getImage('+');
+                    pixelPos = calculateXY(pos);
+                    g.drawImage(bgimage, pixelPos.col, pixelPos.row, null);
+                    g.drawImage(image, pixelPos.col, pixelPos.row, null);
+                }
 			}
 		}						
 	}
